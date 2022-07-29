@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- user.xml -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member_Team1">
+	<!-- 첫 글자가 꼭 대문자일 필요는 없음 -->
+	<select id="checkId" parameterType="String" resultType="int">
+		select count(*) from member_team1 where memId=#{memId}
+	</select>
+	<select id="getMember" parameterType="String" resultType="shop.MemberDTO">
+		select * from member_team1 where memId=#{memId}
+	</select>
+	<insert id="insertMember" parameterType="shop.MemberDTO">
+		insert into member_team1 values(#{memId}, #{memPasswd}, #{memName},
+		#{memZonecode}, #{memAddress}, #{memBuildingName, jdbcType=VARCHAR}, #{memAddrDetail, jdbcType=VARCHAR},
+		#{memEmail, jdbcType=VARCHAR}, #{memPhone, jdbcType=VARCHAR}, #{memStamp}, #{memRegDate})
+		<!-- tel과 email은 null이 가능하다. 만약 null이 넘어올 경우 숫자일지 문자일지 알 수 없으므로 타입을 지정해줘야 한다. -->
+	</insert>
+	<delete id="deleteMember" parameterType="String">
+		delete from member_team1 where memId=#{memId}
+	</delete>
+	<update id="modifyMember" parameterType="shop.MemberDTO">
+		update member_team1 set memPasswd=#{memPasswd}, memZonecode=#{memZonecode}, memAddress=#{memAddress},
+		memBuildingName=#{memBuildingName, jdbcType=VARCHAR}, memAddrDetail=#{memAddrDetail, jdbcType=VARCHAR},
+		memEmail=#{memEmail, jdbcType=VARCHAR}, memPhone=#{memPhone, jdbcType=VARCHAR} where memId=#{memId}
+	</update>
+</mapper>
